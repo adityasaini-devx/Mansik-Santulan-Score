@@ -2,7 +2,7 @@
 "use strict";
 
 /* ===== Configuration ===== */
-const API_URL = "http://127.0.0.1:8000/predict";
+const API_URL = "https://mansik-santulan-score-ntaq.onrender.com";
 
 // Visual scale for the gauge only. Change if your model's score range differs.
 const SCORE_MAX = 10;
