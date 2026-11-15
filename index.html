@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mental Health Score Predictor</title>
+  <meta name="description" content="Understand the relationship between your digital habits and well-being.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+
+  <!-- A. Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Mental Health Score Predictor">
+        <svg class="logo" viewBox="0 0 32 32" aria-hidden="true">
+          <circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M6 17h5l3-7 4 12 3-5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>
+          <strong>Mental Health Score Predictor</strong>
+          <small>Understand the relationship between your digital habits and well-being.</small>
+        </span>
+      </a>
+      <nav aria-label="Primary">
+        <a href="#predict">Predictor</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- B. Hero -->
+    <section class="hero container">
+      <h1>How's your digital <em>well-being</em> doing?</h1>
+      <p>Explore how your social media habits, academic lifestyle, sleep, and physical activity relate to your predicted mental health score.</p>
+    </section>
+
+    <!-- C. Prediction form -->
+    <section id="predict" class="container layout">
+      <form id="predict-form" novalidate>
+
+        <!-- Card 1 -->
+        <fieldset class="card">
+          <legend>Personal information</legend>
+          <div data-slider="age"></div>
+          <div class="field">
+            <label for="gender">Gender</label>
+            <div class="select-wrap">
+              <select id="gender" name="gender" required>
+                <option value="">Select gender</option>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="country">Country</label>
+            <div class="combo">
+              <input id="country" name="country" type="text" autocomplete="off" role="combobox"
+                     aria-expanded="false" aria-controls="country-list" aria-autocomplete="list"
+                     placeholder="Search for a country" required>
+              <ul id="country-list" role="listbox" hidden></ul>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Card 2 -->
+        <fieldset class="card">
+          <legend>Social media habits</legend>
+          <div class="field">
+            <label for="academic_level">Academic level</label>
+            <div class="select-wrap">
+              <select id="academic_level" name="academic_level" required>
+                <option value="">Select level</option>
+                <option>Undergraduate</option>
+                <option>Graduate</option>
+                <option>High School</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="most_used_platform">Most used platform</label>
+            <div class="select-wrap">
+              <select id="most_used_platform" name="most_used_platform" required>
+                <option value="">Select platform</option>
+                <option>Facebook</option><option>LinkedIn</option><option>Instagram</option>
+                <option>Snapchat</option><option>Twitter</option><option>YouTube</option>
+                <option>TikTok</option><option>LINE</option><option>KakaoTalk</option>
+                <option>VKontakte</option><option>WhatsApp</option><option>WeChat</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="purpose_of_use">Purpose of use</label>
+            <div class="select-wrap">
+              <select id="purpose_of_use" name="purpose_of_use" required>
+                <option value="">Select purpose</option>
+                <option>Networking</option><option>Education</option>
+                <option>Entertainment</option><option>News</option>
+              </select>
+            </div>
+          </div>
+          <div data-slider="avg_daily_usage_hours"></div>
+          <div data-slider="daily_unlocks"></div>
+        </fieldset>
+
+        <!-- Card 3 -->
+        <fieldset class="card">
+          <legend>Lifestyle &amp; daily routine</legend>
+          <div data-slider="study_hours"></div>
+          <div data-slider="physical_activity_hours"></div>
+          <div data-slider="sleep_hours_per_night"></div>
+        </fieldset>
+
+        <!-- Card 4 -->
+        <fieldset class="card">
+          <legend>Stress information</legend>
+          <div class="field">
+            <label for="stress_level">Stress level</label>
+            <div class="select-wrap">
+              <select id="stress_level" name="stress_level" required>
+                <option value="">Select stress level</option>
+                <option>Medium</option><option>Low</option>
+                <option>Very High</option><option>High</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <p id="form-error" class="error" role="alert" hidden></p>
+
+        <button type="submit" id="predict-btn" class="btn primary">
+          <span class="btn-label">Predict Mental Health Score</span>
+          <span class="spinner" aria-hidden="true"></span>
+        </button>
+      </form>
+
+      <!-- Result dashboard (right column) -->
+      <aside id="result" class="card result" aria-live="polite">
+        <h2>Your Predicted Mental Health Score</h2>
+        <div id="result-empty" class="result-empty">
+          <div class="gauge gauge-idle">
+            <svg viewBox="0 0 200 200" aria-hidden="true"><circle class="gauge-track" cx="100" cy="100" r="86"/></svg>
+            <div class="gauge-value dim">&mdash;</div>
+          </div>
+          <p class="muted">Adjust your inputs and select Predict Mental Health Score. Your result will appear here.</p>
+        </div>
+        <div id="result-content" class="result-content" hidden>
+          <div class="gauge">
+            <svg viewBox="0 0 200 200" aria-hidden="true">
+              <circle class="gauge-track" cx="100" cy="100" r="86"/>
+              <circle class="gauge-fill" id="gauge-fill" cx="100" cy="100" r="86"/>
+            </svg>
+            <div class="gauge-value" id="score-value">0.00</div>
+          </div>
+          <p class="muted">This is an ML-generated estimate based on the lifestyle and social media inputs you provided. It is a prediction, not a medical diagnosis.</p>
+          <div class="actions">
+            <button type="button" id="again-btn" class="btn primary">Predict Again</button>
+            <button type="button" id="reset-btn" class="btn ghost">Reset Form</button>
+          </div>
+        </div>
+        <p class="disclaimer">This tool is for educational and research purposes only. It does not provide medical advice or diagnose mental health conditions.</p>
+      </aside>
+
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>Mental Health Score Predictor</span>
+      <span>Machine learning project &middot; Educational use only</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
