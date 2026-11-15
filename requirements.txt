@@ -1,13 +1,10 @@
-fastapi
-uvicorn
-pydantic
-pandas
-numpy
-scikit-learn
-joblib
+fastapi==0.115.12
+uvicorn==0.34.2
+pydantic==2.11.4
 
-# ML
-matplotlib
-seaborn
-jupyter
-ipykernel
+numpy==2.2.6
+pandas==2.2.3
+scipy==1.15.2
+
+scikit-learn==1.6.1
+joblib==1.4.2
